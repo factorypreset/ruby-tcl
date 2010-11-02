@@ -4,11 +4,11 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{tcl}
-  s.version = "0.0.1"
+  s.name = "tcl"
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-    s.authors = ["Sam Stephenson"]
+    s.authors = ["Sam Stephenson", "John Mair (banisterfiend)"]
   s.date = %q{2009-12-01}
   s.description = %q{A minimal Ruby interface to libtcl}
   s.email = %q{sstephenson@gmail.com}
