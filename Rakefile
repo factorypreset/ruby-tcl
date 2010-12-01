@@ -10,9 +10,8 @@ begin
     gem.email = "sstephenson@gmail.com"
     gem.homepage = "http://github.com/sstephenson/ruby-tcl"
     gem.authors = ["Sam Stephenson"]
-
-    gem.extensions = FileList['ext/tcl_ruby/extconf.rb']
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+    gem.add_dependency 'ffi', '~> 1.0.0'
+    gem.files.exclude '*.gem'
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
@@ -39,8 +38,6 @@ rescue LoadError
   end
 end
 
-task :test => [:check_dependencies, :compile]
-
 task :default => :test
 
 require 'rake/rdoctask'
@@ -52,7 +49,3 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
-
-require 'rake/extensiontask'
-Rake::ExtensionTask.new("tcl_ruby")
-CLEAN.include ['**/*.{o,bundle,jar,so,obj,pdb,lib,def,exp,log}']
