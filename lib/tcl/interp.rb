@@ -3,9 +3,16 @@ module Tcl
     include InterpHelper
     
     class << self
-      def load_from_file(filename)
+      def load_from_file(filenames)
+        file_content = ""
+        if not filenames.kind_of?(Array)
+            filenames = Array(filenames)
+        end
+        filenames.each do |filename|
+            file_content += IO.read(filename) + "\n"
+        end
         interp = new
-        interp.eval(IO.read(filename))
+        interp.eval(file_content)
         interp
       end
     end

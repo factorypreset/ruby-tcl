@@ -12,6 +12,15 @@ class InterpTest < Test::Unit::TestCase
     assert_equal ["a", "b"],       (@interp.vars - vars).sort
     assert_equal ["c", "d", "e"],  (@interp.procs - procs).sort
   end
+
+  def test_load_from_multiple_files
+    vars, procs = @interp.vars, @interp.procs
+    file1 = path_to_fixture("test.tcl")
+    file2 = path_to_fixture("test2.tcl")
+    @interp = Tcl::Interp.load_from_file([file1, file2])
+    
+    assert_equal ["a", "b", "x", "y"],  (@interp.vars - vars).sort
+  end
   
   def test_eval
     assert_equal "",                @interp.eval("")
