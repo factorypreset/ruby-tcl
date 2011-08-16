@@ -2,19 +2,18 @@ module Tcl
   class Interp
     include InterpHelper
     
-    class << self
-      def load_from_file(filenames)
-        file_content = ""
-        if not filenames.is_a?(Array)
-            filenames = Array(filenames)
-        end
-        filenames.each do |filename|
-            file_content += IO.read(filename) + "\n"
-        end
-        interp = new
-        interp.eval(file_content)
-        interp
-      end
+    def self.load_from_file(filenames)
+      # Static factory method. Returns instance of Tcl::Interp.
+      content = InterpHelper::file_content filenames
+      interp = new
+      interp.eval content
+      interp
+    end
+    
+    def load_from_file(filenames)
+      # Operates on existing instance of Tcl::Interp
+      content = InterpHelper::file_content filenames
+      interp.eval content
     end
     
     def interp

@@ -22,6 +22,14 @@ class InterpTest < Test::Unit::TestCase
     assert_equal ["a", "b", "x", "y"],  (@interp.vars - vars).sort
   end
   
+  def test_load_from_file_later
+    vars, procs = @interp.vars, @interp.procs
+    @interp = Tcl::Interp.load_from_file(path_to_fixture("test.tcl"))
+    @interp.load_from_file(path_to_fixture("test2.tcl"))
+    
+    assert_equal ["a", "b", "x", "y"],  (@interp.vars - vars).sort
+  end
+  
   def test_eval
     assert_equal "",                @interp.eval("")
     assert_equal "0",               @interp.eval("return 0")
