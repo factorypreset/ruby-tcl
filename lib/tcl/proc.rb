@@ -34,6 +34,15 @@ module Tcl
       _!(:info, :body, name)
     end
     
+    def set(new_body, new_args="")
+      # Set args and body for this proc
+      _!(:proc, name, new_args, new_body)
+    end
+    
+    def stub_return(new_return_value)
+      set "return #{new_return_value}"
+    end
+    
     def call(*args)
       _!(name, *args.map { |arg| arg.to_s })
     end

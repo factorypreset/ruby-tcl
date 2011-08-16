@@ -39,4 +39,19 @@ class ProcTest < Test::Unit::TestCase
     assert_equal "proc d {a {b 0}} {return $b}", @interp.proc("d").to_tcl
     assert_equal "proc e {} {}", @interp.proc("e").to_tcl
   end
+  
+  def test_set
+    c = @interp.proc("c")
+    c.set("return true")
+    assert_equal "return true", @interp.proc("c").body
+    assert_equal @interp.eval("c").to_s, "true"
+  end
+  
+  def test_stub_return
+    c = @interp.proc("c")
+    c.stub_return("false")
+    assert_equal "return false", @interp.proc("c").body
+    assert_equal @interp.eval("c").to_s, "false"
+  end
+  
 end

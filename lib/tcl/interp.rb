@@ -5,7 +5,7 @@ module Tcl
     class << self
       def load_from_file(filenames)
         file_content = ""
-        if not filenames.kind_of?(Array)
+        if not filenames.is_a?(Array)
             filenames = Array(filenames)
         end
         filenames.each do |filename|
