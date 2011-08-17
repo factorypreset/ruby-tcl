@@ -107,6 +107,13 @@ class InterpTest < Test::Unit::TestCase
     assert_equal "foo", var.name
   end
   
+  def test_stub_proc
+    my_proc = @interp.stub_proc(:name => "my_proc", :body => "return hello")
+    assert my_proc.is_a?(Tcl::Proc)
+    result = my_proc.call()
+    assert_equal "hello", result
+  end
+  
   def test_to_tcl
     @interp.eval IO.read(path_to_fixture("test.tcl"))
     assert_equal <<-EOF.chomp, @interp.to_tcl

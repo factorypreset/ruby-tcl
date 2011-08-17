@@ -44,6 +44,15 @@ module Tcl
       list_to_array _!(:info, :vars)
     end
     
+    def stub_proc(params)
+      # Creates a simple proc for use as a test stub
+      name = params[:name] || ""
+      args = params[:args] || ""
+      body = params[:body] || ""
+      interp.eval "proc #{name} { #{args} } { #{body} }"
+      proc name
+    end
+    
     def to_tcl
       %w( var proc ).inject([]) do |lines, type|
         send("#{type}s").sort.each do |name|
