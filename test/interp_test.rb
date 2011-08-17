@@ -107,6 +107,16 @@ class InterpTest < Test::Unit::TestCase
     assert_equal "foo", var.name
   end
   
+  def test_var_with_spaces
+    # This one currently fails --
+    # need to fix @interp.eval so it can accept multi-world strings
+    @interp.eval "set foo 'bar baz'"
+    var = @interp.var("foo")
+    assert var.is_a?(Tcl::Var)
+    assert_equal "foo", var.name
+    assert_equal "bar baz", var.value
+  end
+  
   def test_stub_proc
     my_proc = @interp.stub_proc(:name => "my_proc", :body => "return hello")
     assert my_proc.is_a?(Tcl::Proc)
