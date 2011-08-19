@@ -53,6 +53,18 @@ module Tcl
       proc name
     end
     
+    def stub_var(params)
+      # Creates a simple var for use as a test stub
+      name = params[:name]
+      value = params[:value] || ""
+      if value.is_a?(String)
+        interp.eval "set #{name} \"#{value}\""
+      else
+        interp.eval "set #{name} #{value}"
+      end
+      var name
+    end
+    
     def to_tcl
       %w( var proc ).inject([]) do |lines, type|
         send("#{type}s").sort.each do |name|

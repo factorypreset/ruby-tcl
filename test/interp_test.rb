@@ -1,4 +1,5 @@
 require File.expand_path(File.join(File.dirname(__FILE__), "test_helper"))
+require 'ruby-debug'
 
 class InterpTest < Test::Unit::TestCase
   def setup
@@ -120,6 +121,12 @@ class InterpTest < Test::Unit::TestCase
     assert my_proc.is_a?(Tcl::Proc)
     result = my_proc.call()
     assert_equal "hello", result
+  end
+  
+  def test_stub_var
+    my_var = @interp.stub_var(:name => "my_var", :value => "this is a test")
+    assert my_var.is_a?(Tcl::Var)
+    assert_equal my_var.value, "this is a test"
   end
   
   def test_to_tcl
