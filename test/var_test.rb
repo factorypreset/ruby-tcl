@@ -51,6 +51,12 @@ class VarTest < Test::Unit::TestCase
   
   protected
     def assert_errorinfo(value)
-      assert_equal value, @interp.var("errorInfo").value
+      begin
+        errorinfo_value = @interp.var("errorInfo").value
+      rescue Tcl::Error
+        # errorInfo not set (i.e. no errors). Default to ""
+        errorinfo_value = ""
+      end
+      assert_equal value, errorinfo_value
     end
 end
