@@ -125,13 +125,10 @@ class InterpTest < Test::Unit::TestCase
   end
   
   def test_to_tcl
-    @interp.eval IO.read(path_to_fixture("test.tcl"))
-    assert_equal <<-EOF.chomp, @interp.to_tcl
-set a 0
-array set b {a 1 b 2}
-proc c args return
-proc d {a {b 0}} {return $b}
-proc e {} {}
+    @interp.eval IO.read(path_to_fixture("test3.tcl"))
+    assert @interp.to_tcl.include?(<<-EOF.chomp)
+set i 10
+set j 20
     EOF
   end
   
